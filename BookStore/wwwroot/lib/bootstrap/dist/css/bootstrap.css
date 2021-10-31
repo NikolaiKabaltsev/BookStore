@@ -393,9 +393,24 @@ h6, .h6 {
   font-size: 1rem;
 }
 
+.scale {
+    transition: 1s; /* Время эффекта */
+    display: block; /* Убираем небольшой отступ снизу */
+    overflow: hidden; /* Скрываем всё за контуром */
+    z-index: auto;
+}
+
+.scale:hover {
+   transform: scale(3.5); /* Увеличиваем масштаб */
+}
+
+.bias {
+    font-size: 30px
+}
+
 .lead {
-  font-size: 1.25rem;
-  font-weight: 300;
+    font-size: 1.25rem;
+    font-weight: 300;
 }
 
 .display-1 {

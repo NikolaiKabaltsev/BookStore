@@ -15,6 +15,10 @@ namespace WebApplication3.Controllers
         {
             return View(db.Bookes.ToList());
         }
+        public IActionResult Orders()
+        {
+            return View(db.Bookes.ToList());
+        }
         public IActionResult ThxPage(Order order)
         {
             ViewBag.Order = order; //Передаем в "сумку" экземпляр недавнего заказа.
