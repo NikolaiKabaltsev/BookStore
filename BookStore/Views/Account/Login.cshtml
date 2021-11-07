@@ -1,0 +1,30 @@
+﻿@model BookStore.ViewModels.LoginModel
+
+<h2>Вход на сайт</h2>
+
+
+<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div >
+        <div class="form-group">
+            <label asp-for="Email" class="col-md-2 control-label">Введите Email</label>
+            <div class="col-md-4">
+                <input type="text" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" />
+            </div>
+            </div>
+        <div class="form-group">
+            <label asp-for="Password" class="col-md-2 control-label">Введите пароль</label>
+            <div class="col-md-4">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" />
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Войти" class="btn btn-default" />
+        </div>
+    </div>
+</form>
+
+
+Нет аккаунта? <a asp-action="Register" asp-controller="Account">Регистрация</a>

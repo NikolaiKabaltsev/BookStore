@@ -1,4 +1,14 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function calc() {
+    var table = document.getElementById("table");
+    var sum = 0;
+    let lastRow = table.rows[table.rows.length - 1].cells[3];
+    for (var i = 1; i < table.rows.length - 1; i++) {
+        let row = table.rows[i];
+        sum += Number(row.cells[1].innerText) * Number(row.cells[3].innerText);
+    }
+    lastRow.innerText = sum;
+}
 
-// Write your JavaScript code.
+window.onload = function () {
+    calc();
+}

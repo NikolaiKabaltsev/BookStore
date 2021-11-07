@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using BookStore.Models;   // пространство имен моделей
 using Microsoft.EntityFrameworkCore; // пространство имен EntityFramework
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 
 namespace BookStore
 {
@@ -19,18 +21,37 @@ namespace BookStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection1 = Configuration.GetConnectionString("Connection");
+            services.AddDbContext<UserContext>(options => options.UseSqlServer(connection1));
+
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<BkContext>(options => options.UseSqlServer(connection));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+          .AddCookie(options => //CookieAuthenticationOptions
+                {
+              options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+          });
+
             services.AddControllersWithViews();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
-
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();    // аутентификация
+            app.UseAuthorization();     // авторизация
 
             app.UseEndpoints(endpoints =>
             {
